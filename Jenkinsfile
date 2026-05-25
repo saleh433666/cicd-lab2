@@ -1,3 +1,4 @@
+@Library('saleh-lib')_
 pipeline {
     agent {
         label 'jenkins-agent'
@@ -32,9 +33,21 @@ pipeline {
                 archiveArtifacts artifacts: '**/*.jar', followSymlinks: false
             }
         }
+        stage("build docker"){
+            steps{
+                script{
+                    def s7 = new edu.iti.docker()
+                    s7.build("hassane/java" , "v1")
+                }
+               
+            }
+        }
         stage("docker login") {
             steps {
-                sh "docker login -u ${dockerName} -p ${dockerPass}"
+                script{
+                    def s7 = new edu.iti.docker()
+                    s7.login("${dockerName}" , "${dockerPass}")
+                }
             }
         }
     }
