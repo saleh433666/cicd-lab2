@@ -3,7 +3,7 @@ pipeline {
         label 'jenkins-agent'
     }
     environment {
-        dockerName = credentials("dockerName")
+        dockerName = credentials("dockername")
         dockerpass = credentials("dockerpass")
     }
     tools {
@@ -11,11 +11,6 @@ pipeline {
         maven 'maven-354'
     }
     stages {
-        stage("git java app") {
-            steps {
-                git 'https://github.com/Hassan-Eid-Hassan/cicd-lab2.git'
-            }
-        }
         stage("Build java app") {
             steps {
                 sh "mvn package install -DskipTests"
@@ -33,7 +28,7 @@ pipeline {
         }
         stage("docker login") {
             steps {
-                sh "docker login -u ${dockerName} -p ${dockerpass}"
+                sh "docker login -u ${dockername} -p ${dockerpass}"
             }
         }
     }
