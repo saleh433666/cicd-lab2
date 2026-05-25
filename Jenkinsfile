@@ -3,8 +3,8 @@ pipeline {
         label 'jenkins-agent'
     }
     environment {
-        dockerName = credentials("docker-name")
-        dockerpass = credentials("docker-pass")
+        dockerName = credentials("dockerName")
+        dockerpass = credentials("dockerPass")
     }
     tools {
         jdk 'jdk-11'
@@ -34,7 +34,7 @@ pipeline {
         }
         stage("docker login") {
             steps {
-                sh "docker login -u ${docker-name} -p ${docker-pass}"
+                sh "docker login -u ${dockerName} -p ${dockerPass}"
             }
         }
     }
